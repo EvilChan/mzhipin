@@ -8,7 +8,7 @@
 >
 > Docker
 
-> 项目下载（传统）（嫌慢的把github换成gitee）
+> 项目下载（传统，须得设置后端的mongo地址）（嫌慢的把github换成gitee）
 
 ```shell
 git clone https://github.com/Evilchan/mzhipin.git
