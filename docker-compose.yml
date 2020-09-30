@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  web:
+    image: nginx:1.19
+    container_name: myweb
+    volumes:
+      - ./mzhipin-client/dist:/usr/share/nginx/html
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    expose:
+      - 80
+    links:
+      - data
+    depends_on:
+      - data
+  data:
+    build: ./mzhipin-server
+    container_name: mydata
+    volumes:
+      - ./mzhipin-server:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 4000:4000
+    expose:
+      - 4000
+    command: "npm start"
+    restart: always
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    container_name: mymongo
+    volumes:
+      - ./data/configdb:/data/configdb
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
